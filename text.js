@@ -12,13 +12,16 @@ window.onload = function() {
 				reader.onload = function(e) {
 					
 					fileDisplayArea.empty();
+					$(".transpose-keys").remove();
 					 var lines = reader.result.split("<br>");
- 
+
 					for(var n = 0; n < lines.length; n++) {
-						$( "pre" ).append(lines[n] + "\n");
+						$( "pre" ).append("<span class='lyrics'>" + lines[n] + "\n" + "</span>");
 					}
-					   $( "pre" ).transpose();
-					   chords_drag()
+
+					$( "pre" ).transpose(); 
+					
+					  chords_drag()
 				}
 
 				reader.readAsText(file);	

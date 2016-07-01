@@ -213,16 +213,17 @@
       keysHtml.html(keyLinks.join(""));
       $("a", keysHtml).click(function(e) {
           e.preventDefault();
-          transposeSong($this, $(this).text());
+          transposeSong($("#documento"), $(this).text());
           $(".transpose-keys a").removeClass("selected");
           $(this).addClass("selected");
           return false;
       });
       
-      $(this).before(keysHtml);
+      // $(this).before(keysHtml);
+      $(this).append(keysHtml) ;
 
       var output = [];
-      var lines = $(this).text().split("\n");
+      var lines = $("#documento").text().split("\n");
       var line, tmp = "";
 
       for (var i = 0; i < lines.length; i++) {
@@ -234,7 +235,7 @@
               output.push("<span>" + line + "</span>");
       };
 
-      $(this).html(output.join("\n"));
+      $("#documento").html(output.join("\n"));
     });
   };
 
