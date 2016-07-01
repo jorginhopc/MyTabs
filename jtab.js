@@ -557,18 +557,18 @@ Raphael.fn.has_tab = false;
 
 Raphael.fn.debug = false;
 Raphael.fn.scale = 1;
-Raphael.fn.margin_top = 36;
+Raphael.fn.margin_top = 30;
 Raphael.fn.margin_bottom = 10;
-Raphael.fn.margin_left = 16;
+Raphael.fn.margin_left = 10;
 Raphael.fn.margin_right = 10;
 
 Raphael.fn.current_offset = Raphael.fn.margin_left;
 
-Raphael.fn.string_spacing = 16;
+Raphael.fn.string_spacing = 12;
 Raphael.fn.strings_drawn = 6;
-Raphael.fn.fret_spacing = 16;
+Raphael.fn.fret_spacing = 13;
 Raphael.fn.frets_drawn = 4;
-Raphael.fn.note_radius = 7;
+Raphael.fn.note_radius = 5;
 
 Raphael.fn.fret_width = Raphael.fn.string_spacing * ( Raphael.fn.strings_drawn - 1 );
 Raphael.fn.fret_height = Raphael.fn.fret_spacing * (Raphael.fn.frets_drawn + 0.5);
@@ -645,7 +645,7 @@ Raphael.fn.chord_fretboard = function ( position, chord_name ) {
       this.text(
           fret_left + this.fret_width + this.string_spacing * 1.0,
           this.margin_top + ( ( i - 0.5 ) * this.fret_spacing),
-          pos).attr({stroke: this.tab_text_color, "font-size":"12px"});
+          pos).attr({stroke: this.tab_text_color, "font-size":"10px"});
     }
   }
   for (var i = 0; i < this.strings_drawn; i++ ) {
