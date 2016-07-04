@@ -11,17 +11,41 @@ window.onload = function() {
 
 				reader.onload = function(e) {
 					
+					$(".transpose-keys").remove();
+					$("#pre").empty();
+					$("#documento").empty();
+					$("#pre").transpose();
+			
 					fileDisplayArea.empty();
 					$(".transpose-keys").remove();
 					 var lines = reader.result.split("<br>");
 
 					for(var n = 0; n < lines.length; n++) {
-						$( "pre" ).append("<span class='lyrics'>" + lines[n] + "\n" + "</span>");
+						if (lines[n].startsWith("<chords>"))
+						{
+							$("#documento").append("<span class='chord_line'>" + lines[n].slice(9,lines[n].length) + "</span>\n");
+							var arr_chords = lines[n].slice(9,lines[n].length).split(" ");
+								for(var m = 0; m < arr_chords.length; m++) {
+									if (arr_chords[m] != ""){
+										add_usados(arr_chords[m]);
+									}
+								}
+						}
+						else
+						{
+							if (lines[n].startsWith("<lyrics>"))
+							{
+								$("#documento").append("<span class='lyrics'>" + lines[n].slice(9,lines[n].length) + "</span>\n");
+							}
+							else
+							{
+								$("#documento").append("<span class='lyrics'>" + lines[n] + "</span>\n");
+							}
+						}
 					}
-
-					$( "pre" ).transpose(); 
 					
-					  chords_drag()
+					$("#pre").transpose();
+					chords_drag()
 				}
 
 				reader.readAsText(file);	

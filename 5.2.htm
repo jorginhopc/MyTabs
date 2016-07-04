@@ -132,7 +132,7 @@
 
 	    var res = [];
 
-	    linhas = document.getElementById("pre").children;
+	    linhas = document.getElementById("#documento").children;
 
 	    for (var n = 0; n < linhas.length; n++) {
 
@@ -153,14 +153,14 @@
 	                    }
 
 	                    last_position = chord_position + ($(lista_acordes[m]).text().length * 7);
-	                    linha_text = linha_text + espacos + $(lista_acordes[m]).text();
+	                    linha_text = "<chords> " + linha_text + espacos + $(lista_acordes[m]).text();
 	                }
 
 
 
 	                res.push(linha_text);
 	            } else {
-	                res.push($(linhas[n]).text());
+	                res.push("<lyrics> " + $(linhas[n]).text());
 	            }
 
 	        }

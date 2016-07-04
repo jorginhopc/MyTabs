@@ -232,7 +232,7 @@
           if (isChordLine(line))
               output.push("<span class='chord_line'>" + wrapChords(line) + "</span>");
           else
-              output.push("<span>" + line + "</span>");
+              output.push("<span class='lyrics'>" + line + "</span>");
       };
 
       $("#documento").html(output.join("\n"));
