@@ -49,7 +49,7 @@ var jtab = {
              // each note is an array: (fret position), (left hand fingering if applicable 1,2,3,4,T)
              // fret position: -1 = muted/not played; 0 = open; 1,2,3... = fret position
     C       : [ [ 0, [-1 ],  [3,3],  [2,2],  [0  ],  [1,1],  [0  ] ], [ 12, [-1,-1],  [15,4],  [14,3],  [12,1],  [13,2],  [12,1 ] ] ],
-    Cm      : [ [ 0, [-1 ],  [3,4],  [1,2],  [0  ],  [1,1],  [-1 ] ], [ 12, [-1,-1],  [15,4],  [13,3],  [12,1],  [13,2],  [-1,-1] ] ],
+    Cm      : [ [ 1, [-1 ],  [3,1],  [5,3],  [5,4],  [4,2],  [3,1] ], [ 0, [-1 ],  [3,4],  [1,2],  [0  ],  [1,1],  [-1 ] ], [ 12, [-1,-1],  [15,4],  [13,3],  [12,1],  [13,2],  [-1,-1] ] ],
     C6      : [ [ 0, [-1 ],  [0  ],  [2,2],  [2,3],  [1,1],  [3,4] ], [ 12, [-1,-1],  [12,1],  [14,3],  [14,3],  [13,2],  [15,4] ] ],
     Cm6     : [ [ 0, [-1 ],  [-1 ],  [1,1],  [2,3],  [1,2],  [3,4] ], [  ] ],
     C69     : [ [ 0, [-1 ],  [3,2],  [2,1],  [2,1],  [3,3],  [3,4] ], [  ] ],
@@ -71,7 +71,7 @@ var jtab = {
     Cdim7   : [ [ 0, [-1 ],  [-1 ],  [1,1],  [2,3],  [1,2],  [2,4] ], [  ] ],
     Caug    : [ [ 0, [-1 ],  [-1 ],  [2,2],  [1,1],  [1,1],  [4,4] ], [  ] ],
 
-    "C#"    : [ [ 0, [-1 ],  [4,4],  [3,4],  [1,1],  [2,2],  [1,1] ], [  ] ],
+    "C#"    : [ [ 2, [-1 ],  [4,1],  [6,2],  [6,3],  [6,4],  [4,1] ], [ 0, [-1 ],  [4,4],  [3,4],  [1,1],  [2,2],  [1,1] ] ],
     "C#m"   : [ [ 2, [4,1],  [4,1],  [6,3],  [6,4],  [5,2],  [4,1] ], [ 0, [-1 ],  [-1 ],  [2,2],  [1,1],  [2,3],  [0  ] ] ],
     "C#6"   : [ [ 0, [-1 ],  [-1 ],  [3,2],  [3,3],  [2,1],  [4,4] ], [  ] ],
     "C#m6"  : [ [ 0, [-1 ],  [4,3],  [2,1],  [3,2],  [2,1],  [4,4] ], [  ] ],
@@ -619,10 +619,10 @@ Raphael.fn.svg_params = function(x,y,l1,l2) {
 }
 
 // draw the fretboard
-Raphael.fn.chord_fretboard = function ( position, chord_name ) {
+Raphael.fn.chord_fretboard = function ( position, first_position, chord_name ) {
   var fret_left = this.current_offset + this.margin_left;
   // conventional fret labels
-  var fret_labels = [ '', '', '', 'III', '', 'V', '', 'VII', '', 'IX', '', '', 'XII', '', '', 'XV', '', 'XVII', '', 'XIX', '', 'XXI', '' ];
+  var fret_labels = [ '', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '', '', '15', '', '17', '', '19', '', '21', '' ];
   // alternative friendly fret labels. Currently disabled, maybe bring these back as a configurable option?
   // var fret_labels = [ '', '1fr', '2fr', '3fr', '4fr', '5fr', '6fr', '7fr', '8fr', '9fr', '10fr', '11fr', '12fr', '13fr', '14fr', '15fr', '16fr', '17fr', '18fr', '19fr', '20fr', '21fr', '' ];
 
@@ -640,13 +640,15 @@ Raphael.fn.chord_fretboard = function ( position, chord_name ) {
     this.path(this.svg_params(fret_left,this.margin_top + (i * this.fret_spacing),this.string_spacing * (this.strings_drawn - 1), 0))
 
     pos = ( fret_labels[ position + i ] === undefined ) ? '' : fret_labels[ position + i ];
+	if (position+i == first_position){
+		if ( pos.length > 0 ) { // draw fret position
+		  this.text(
+			  fret_left + this.fret_width + this.string_spacing * 1.0,
+			  this.margin_top + ( ( i - 0.5 ) * this.fret_spacing),
+			  pos).attr({stroke: this.tab_text_color, "font-size":"10px"});
+		}
+	}
 
-    if ( pos.length > 0 ) { // draw fret position
-      this.text(
-          fret_left + this.fret_width + this.string_spacing * 1.0,
-          this.margin_top + ( ( i - 0.5 ) * this.fret_spacing),
-          pos).attr({stroke: this.tab_text_color, "font-size":"10px"});
-    }
   }
   for (var i = 0; i < this.strings_drawn; i++ ) {
     this.path(this.svg_params(fret_left + (i * this.string_spacing),this.margin_top,0, this.fret_spacing * (this.frets_drawn + 0.5)))  // strings
@@ -875,7 +877,20 @@ Raphael.fn.render_token = function (token) {
   if ( c.isValid ) { // draw chord
     var chord = c.chordArray;
     // this.chord_fretboard(chord[0], c.fullChordName );
-    this.chord_fretboard(chord[0], c.chordName );
+	
+	var first_position = 12;
+	
+	for (var i = 1; i < chord.length ; i++) {
+		if (chord[i][0]>0)
+		{
+			  if (chord[i][0] < first_position){
+				  first_position = chord[i][0];
+			  }
+		}
+    }
+	pos = ( first_position == 12) ? 0 : first_position;
+	
+    this.chord_fretboard(chord[0],first_position, c.chordName );
     for (var i = 1; i < chord.length ; i++) {
       this.chord_note(chord[0], i, chord[i]);
     }

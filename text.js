@@ -11,10 +11,7 @@ window.onload = function() {
 
 				reader.onload = function(e) {
 					
-					$(".transpose-keys").remove();
-					$("#pre").empty();
-					$("#documento").empty();
-					$("#pre").transpose();
+					new_doc();
 			
 					fileDisplayArea.empty();
 					$(".transpose-keys").remove();
