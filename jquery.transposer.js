@@ -129,8 +129,15 @@
 
         var delta = getDelta(currentKey.value, newKey.value);
         
+		dic_usados = [];
+	    dic_todos_usados = [];
+		 
+		$("#usados").children('li').remove();
+	    jtab.render($('#chords_usados_images'), "");
+		
         $("span.c", target).each(function (i, el) {
             transposeChord(el, delta, newKey);
+			add_usados($(el).text());
         });
         
         currentKey = newKey;

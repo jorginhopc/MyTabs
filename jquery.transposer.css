@@ -79,7 +79,7 @@ span.c {
 	/* botoes */
 	#save_button
 	{
-	background:url(save.png) no-repeat;
+	background:url(save2.png) no-repeat;
 	background-size: 100% auto;
 	margin-left: 10px;
 	margin-right: 10px;
@@ -106,7 +106,19 @@ span.c {
 	
 	#new_button
 	{
-	background:url(new_doc.png) no-repeat;
+	background:url(new_doc2.png) no-repeat;
+	background-size: 100% auto;
+	margin-left: 10px;
+	margin-right: 10px;
+    cursor:pointer;
+    width: 35px;
+    height: 35px;
+    border: none; 
+	}
+	
+	#print_button
+	{
+	background:url(print2.png) no-repeat;
 	background-size: 100% auto;
 	margin-left: 10px;
 	margin-right: 10px;
@@ -123,8 +135,9 @@ span.c {
 	}
 
 	.left_column{
-	 width: 100px;
+	 width: 120px;
 	 height: 100%;	 
+	 padding-right: 20px;
 	}
 	
 	.center_column{
