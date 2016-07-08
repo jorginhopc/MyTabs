@@ -33,7 +33,7 @@
       { name: 'Gb',  value: 10,  type: 'F' },
       { name: 'G',   value: 11,  type: 'N' },
       { name: 'G#',  value: 0,   type: 'S' }
-    ];
+    ];  
   
     var getKeyByName = function (name) {
         if (name.charAt(name.length-1) == "m") {
