@@ -17,7 +17,7 @@ window.onload = function() {
 					$(".transpose-keys").remove();
 					var lines = reader.result.split("<br>");
 
-					if (lines.length>1)
+					if (lines.length>0)
 					{
 						if (lines[0].startsWith("<tone>"))
 						{
@@ -25,10 +25,17 @@ window.onload = function() {
 							$("#pre").attr("data-key", tone);
 						}
 						
-						for(var n = 1; n < lines.length; n++) {
+						if (lines[1].startsWith("<title>"))
+						{
+							var title = lines[1].slice(7,lines[1].length).trim();
+							$("#title").text(title);
+						}
+						
+						for(var n = 0; n < lines.length; n++) {
 						if (lines[n].startsWith("<chords>"))
 						{
-							$("#documento").append("<span class='chord_line'>" + lines[n].slice(9,lines[n].length) + "</span>\n");
+							$("#documento").append("<span class='chord_line'>" + lines[n].slice(9,lines[n].length) + "</span>\n");  
+							/* $("#documento").append("<span class='chord_line'>" + lines[n].slice(12,lines[n].length) + "</span>\n"); */
 							var arr_chords = lines[n].slice(9,lines[n].length).split(" ");
 								for(var m = 0; m < arr_chords.length; m++) {
 									if (arr_chords[m].trim() != ""){
@@ -44,7 +51,7 @@ window.onload = function() {
 							}
 							else
 							{
-								$("#documento").append("<span class='lyrics'>" + lines[n] + "</span>\n");
+								if (!lines[n].startsWith("<tone>") && !lines[n].startsWith("<title>")) $("#documento").append("<span class='lyrics'>" + lines[n] + "</span>\n");	
 							}
 						}
 					}
