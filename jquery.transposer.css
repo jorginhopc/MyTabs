@@ -76,7 +76,13 @@ span.c {
 	height: 100%; 
 	}
 	
+	
 	/* botoes */
+	#botoes
+	{
+	height: 60px;
+	}
+	
 	#save_button
 	{
 	background:url(001-file.png) no-repeat;
