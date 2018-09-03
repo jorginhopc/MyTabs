@@ -17,7 +17,7 @@ window.onload = function() {
 					$(".transpose-keys").remove();
 					var lines = reader.result.split("<br>");
 
-					if (lines.length>0)
+					if (lines.length>1)
 					{
 						if (lines[0].startsWith("<tone>"))
 						{
@@ -34,8 +34,7 @@ window.onload = function() {
 						for(var n = 0; n < lines.length; n++) {
 						if (lines[n].startsWith("<chords>"))
 						{
-							$("#documento").append("<span class='chord_line'>" + lines[n].slice(9,lines[n].length) + "</span>\n");  
-							/* $("#documento").append("<span class='chord_line'>" + lines[n].slice(12,lines[n].length) + "</span>\n"); */
+							$("#documento").append("<span class='chord_line'>" + lines[n].slice(9,lines[n].length) + "</span>\n");
 							var arr_chords = lines[n].slice(9,lines[n].length).split(" ");
 								for(var m = 0; m < arr_chords.length; m++) {
 									if (arr_chords[m].trim() != ""){

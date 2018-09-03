@@ -114,18 +114,20 @@
 	});
 	
 	function new_doc() {
+	   /*location.reload();*/
+	 
 	    $(".transpose-keys").remove();
 	    $("#pre").empty();
 	    $("#documento").empty();
 	    $("#pre").transpose();
 		$("#title").text("");
-			
+
 		dic_usados = [];
 	    dic_todos_usados = [];
 
 		$("#usados").children('li').remove();
 	    jtab.render($('#chords_usados_images'), "");
-		chords_drag();
+		chords_drag();  
 	}	
 	
 	function myFunction() {
@@ -152,8 +154,8 @@
 
 	        if ($(linhas[n]).is("span")) {
 	            if (linhas[n].hasAttributes() && linhas[n].classList[0] == "chord_line") {
-	                var last_position = 176;
-	                var chord_position = 176;
+	                var last_position = 150;
+	                var chord_position = 150;
 	                var espacos = "";
 	                var linha_text = "";
 	                var lista_acordes = linhas[n].children;
@@ -183,6 +185,10 @@
 	  	a.href = "data:text/html," + res.join("<br>");
 	    a.click();
 	}
+
+function load_file(){
+    $('#load_file').click();
+}
 	
 	//popular a lista de acordes pelo tom
     function popular_lista(x) {
@@ -264,17 +270,17 @@
 	<!-- <button onClick="esconde()">Hide</button> -->
 	
 	
-	<button id="print_button" onClick="myFunction()"></button>
+	<!-- <button id="print_button" onClick="myFunction()"></button> -->
+	<input id="print_button" onClick="myFunction()"></input>
 	<input id="new_button" onClick="new_doc()" alt="New Document"></button>
-	<label for="load_file">
-        <img id="load_file_image" src="open2.png"/>
-    </label>
+	<input id="load_file_image" onClick="load_file()"></input>
 	<input id="load_file" type="file" value="Load file">
 	<input id="save_button" onClick="download()"></button>
 	
 </div>
 	
  <table class="table_doc">
+ 
    <tr>
     <td class="left_column" rowspan="4">
 	<div id="chords_list">
@@ -304,7 +310,7 @@
 		</div>
 	</td>
 	<td><div id="pre" data-key="C">	</div></td>
-	<td class="right_column" rowspan="4"><div id="purge"> </div> </td>
+	<td class="right_column" rowspan="3"><div id="purge"> </div> </td>
   </tr>
  
  <tr>
@@ -316,7 +322,7 @@
   <tr>
      <td class="center_column"> 
 	     <pre id="documento"></pre>
-	 </td> 
+		</td> 
   </tr>
   <tr>
     <td><div id="chords_usados_images">  </div></td>
