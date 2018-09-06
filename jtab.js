@@ -48,7 +48,7 @@ var jtab = {
              // each position is an array comprising: 1. base fret (0==nut); 2. 6x note definitions (strings 6,5,4,3,2,1)
              // each note is an array: (fret position), (left hand fingering if applicable 1,2,3,4,T)
              // fret position: -1 = muted/not played; 0 = open; 1,2,3... = fret position
-    C       : [ [ 0, [-1 ],  [3, ],  [2,2],  [0  ],  [1,1],  [0  ] ], [ 12, [-1,-1],  [15,4],  [14,3],  [12,1],  [13,2],  [12,1 ] ] ],
+    C       : [ [ 0, [-1 ],  [3, 3],  [2,2],  [0  ],  [1,1],  [0  ] ], [ 12, [-1,-1],  [15,4],  [14,3],  [12,1],  [13,2],  [12,1 ] ] ],
     Cm      : [ [ 1, [-1 ],  [3,1],  [5,3],  [5,4],  [4,2],  [3,1] ], [ 0, [-1 ],  [3,4],  [1,2],  [0  ],  [1,1],  [-1 ] ], [ 12, [-1,-1],  [15,4],  [13,3],  [12,1],  [13,2],  [-1,-1] ] ],
     C6      : [ [ 0, [-1 ],  [0  ],  [2,2],  [2,3],  [1,1],  [3,4] ], [ 12, [-1,-1],  [12,1],  [14,3],  [14,3],  [13,2],  [15,4] ] ],
     Cm6     : [ [ 0, [-1 ],  [-1 ],  [1,1],  [2,3],  [1,2],  [3,4] ], [  ] ],
@@ -772,7 +772,7 @@ Raphael.fn.tab_start = function () {
 
   // extend tab
   this.tab_extend(width);
-
+  
   //write TAB
   this.text(this.current_offset + this.tab_char_width, this.tab_top + this.tab_spacing * 1.5, "T").attr({stroke: this.color, "font-size":"14px"});
   this.text(this.current_offset + this.tab_char_width, this.tab_top + this.tab_spacing * 2.5, "A").attr({stroke: this.color, "font-size":"14px"});
@@ -1009,10 +1009,11 @@ jtab.render = function (element,notation_text) {
   jtab.setPalette(element);
   canvas = Raphael(rndID, 80, Raphael.fn.total_height );
   canvas.tab_start();
-
+  
   var tokens = notation.split(/\s/);
   for(var i = 0; i < tokens.length; i++) {
     canvas.render_token(tokens[i]);
+	/*jQuery("#chords_usados_images_botoes").append("<span class='change_chord'></span>"));*/
   }
   jQuery(element).addClass('rendered');
 }
